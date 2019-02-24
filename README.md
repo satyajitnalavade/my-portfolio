@@ -7,3 +7,7 @@ This is my portfolio using AWS and ReactJS.
 Brew
 Git and github
 SSH
+HTML
+CSS
+Font awesome
+Google Fonts
