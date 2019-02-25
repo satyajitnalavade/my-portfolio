@@ -1,0 +1,12 @@
+version: 0.1
+
+phases:
+  build:
+    Commands:
+      - echo nothing to do yet
+artifacts:
+  files:
+    - index.html
+    - facicon.ico
+    - styles/main.css
+    - images/*
