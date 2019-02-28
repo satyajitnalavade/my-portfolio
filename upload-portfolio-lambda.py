@@ -6,7 +6,12 @@ import json
 from botocore.client import Config
 
 def lambda_handler(event, context):
-    # TODO implement
+
+
+  sns = boto3.resource('sns')
+  topic = sns.Topic('arn:aws:sns:us-east-1:134982910305:deployPortfolioTopic')
+
+  try:
 
     s3 = boto3.resource('s3', config=Config(signature_version='s3v4'))
 
@@ -21,6 +26,11 @@ def lambda_handler(event, context):
         obj = myzip.open(nm)
         portfolio_bucket.upload_fileobj(obj, nm, ExtraArgs={'ContentType':mimetypes.guess_type(nm)[0]})
         portfolio_bucket.Object(nm).Acl().put(ACL='public-read')
+
+    topic.publish(Subject="Portfolio Deployed", Message = "Portfolio deployed Successfully")
+  except:
+    topic.publish(Subject="Portfolio Deploy Failed", Message= "The Portfolio deployment failed")
+    raise
 
     return {
         'statusCode': 200,
